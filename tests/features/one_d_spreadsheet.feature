@@ -2,8 +2,8 @@
 Feature: 1D Spreadsheet puzzle
   Calculation resolves correctly.
 
-  Background: module loaded
-    Given the script 1d_spreadsheet
+  Background: one_d_spreadsheet module
+    Given module loaded: one_d_spreadsheet
 
   Scenario: Simple dependency
     When I send these inputs

@@ -11,9 +11,9 @@ def get_output_lines(operations_text: Iterable[str]) -> Iterator[int]:
 
         def calculate_operation(operator_arg, calculation_args, results_state) -> int:
 
-            arg_parse_call_arg = Union[Generator[int, None, None], int, None]
-            arg_parse_callable = Callable[[str], arg_parse_call_arg]
-            arg_parse_call = Tuple[arg_parse_callable, arg_parse_call_arg]
+            parsable = Union[Generator[int, None, None], int, None]
+            arg_parser = Callable[[str], parsable]
+            arg_parse_call = Tuple[arg_parser, parsable]
 
             def parse_arg(arg: str, results_state_parse_arg: list) -> arg_parse_call:
                 def resolve_reference(index: int, results_state_resolve: list):
@@ -37,8 +37,10 @@ def get_output_lines(operations_text: Iterable[str]) -> Iterator[int]:
                 for arg_type, arg_value in arg_dict.items():
                     return parsing_formulae[arg_type], arg_value  # Return first (and only)
 
-            def evaluate_generator(parse_arg_call: arg_parse_call):
-                return [callable_obj(argument) for callable_obj, argument in parse_arg_call][0]
+            def evaluate_generator(call_arg_tuple: arg_parse_call):
+                callable_obj, argument = call_arg_tuple
+                evaluated_result = callable_obj(argument)
+                return evaluated_result
 
             operation_formulae = {
                 'VALUE': lambda x, y: x,

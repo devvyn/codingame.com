@@ -10,7 +10,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.input_lines = (line for line in context.table)
+    context.input_lines = (line["line"] for line in context.table)
 
 
 @then("I receive these outputs")
@@ -18,13 +18,9 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    assert context.table == get_output_lines(context.input_lines)  # FIXME: get text lines
+    for expected_line, actual_line in zip(
+            (row["line"] for row in context.table),
+            (str(line) for line in get_output_lines(context.input_lines))
+    ):
+        assert expected_line == actual_line
 
-
-@given("the script 1d_spreadsheet")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    # import
-    pass
