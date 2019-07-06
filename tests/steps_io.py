@@ -3,7 +3,7 @@ from behave import *
 from one_d_spreadsheet import get_output_lines
 
 
-@when("I receive")
+@when("the inputs are")
 def step_impl(context):
     """
     :type context: behave.runner.Context
@@ -11,7 +11,7 @@ def step_impl(context):
     context.input_lines = (row["in"] for row in context.table)
 
 
-@then("I send")
+@then("the outputs are")
 def step_impl(context):
     """
     :type context: behave.runner.Context
