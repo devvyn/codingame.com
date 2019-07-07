@@ -1,7 +1,5 @@
 from behave import *
 
-from one_d_spreadsheet import get_output_lines
-
 
 @when("the inputs are")
 def step_impl(context):
@@ -18,6 +16,6 @@ def step_impl(context):
     """
     for expected_line, actual_line in zip(
             (row["out"] for row in context.table),
-            (str(line) for line in get_output_lines(context.input_lines))
+            (str(line) for line in context.get_output_lines(context.input_lines))
     ):
         assert expected_line == actual_line
