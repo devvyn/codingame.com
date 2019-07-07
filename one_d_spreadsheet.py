@@ -1,3 +1,9 @@
+"""
+Puzzle solution for '1D Spreadsheet' on [codingame.com]. Source at [github.com/devvyn].
+
+[github.com/devvyn]: https://github.com/devvyn/codingame.com/blob/master/one_d_spreadsheet.py
+[codingame.com]: https://codingame.com/
+"""
 import re
 from typing import Callable, Generator, Iterable, Iterator, List, Union, Tuple
 
@@ -8,6 +14,7 @@ def get_output_lines(operations_text: Iterable[str]) -> Iterator[int]:
         return operation[0], tuple(operation[1:])
 
     def calculate_operations(operation_iterable: Iterable) -> List[int]:
+        """For each element in `operation_iterable`, output calculated solution"""
 
         def calculate_operation(operator_arg, calculation_args, results_state) -> int:
 
@@ -77,14 +84,8 @@ def solve_1d_spreadsheet_puzzle():
 
     Read from stdin, print to stdout.
     """
-    print(
-        '\n'.join(
-            (
-                str(result) for result
-                in get_output_lines((input() for _ in range(int(input()))))
-            )
-        )
-    )
+    for result in get_output_lines((input() for _ in range(int(input())))):
+        print(result)
 
 
 if __name__ == '__main__':
